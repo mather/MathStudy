@@ -1,0 +1,311 @@
+
+\documentclass[dvipdfmx,12pt,a4paper,handout]{beamer}
+%\usepackage[size=a4,scale=3.5]{beamerposter}
+\usepackage{bxdpx-beamer} % dvipdfmx
+\usepackage{pxjahyper}    % 日本語で'しおり'したい
+\usepackage{amsmath}	% required for `\pmatrix' (yatex added)
+\usepackage{bm}
+\renewcommand{\kanjifamilydefault}{\gtdefault} % 既定をゴシック体に
+
+\usefonttheme{professionalfonts}
+%\usetheme{Copenhagen}
+\usetheme{Madrid}
+\title{平日夜の数学勉強会 2回目}
+\author{桑畑英資 (@mather314)}
+\date{2017/10/24}
+
+
+\newcommand{\relmiddle}[1]{\mathrel{}\middle#1\mathrel{}}
+
+\begin{document}
+
+\frame{\maketitle}
+
+\begin{frame}{前回のおさらい}
+ \begin{itemize}
+  \item 機械学習は抽象的には「判定関数を漸近的に改善する処理」
+  \item 「判定をする処理」と「改善しているか評価する関数」が重要
+  \item データの表現はベクトル、評価のモデルに統計・確率
+  \item ベクトルと和・スカラー倍の演算、写像（関数）の定義
+  \item 行列の定義、和・積の演算
+  \item ベクトルの線形写像と行列とベクトルの積の関係
+ \end{itemize}
+\end{frame}
+
+\begin{frame}{前回のおさらい - ベクトル}
+ $K$ : 体（field, 和・積・商の定義された集合）、 $V$ : $K$ のベクトル空間(vector space)
+
+ ベクトル(vector)
+ \[
+  \bm{v} =
+  \begin{pmatrix}
+   v_1 \\
+   \vdots \\
+   v_n
+  \end{pmatrix},
+ \bm{w} =
+  \begin{pmatrix}
+   w_1 \\
+   \vdots \\
+   w_n
+  \end{pmatrix}
+  \in V
+ \]
+
+
+ \begin{block}{ベクトルの和}
+  \[
+  \bm{v} + \bm{w} =
+  \begin{pmatrix}
+   v_1 + w_1 \\
+   \vdots \\
+   v_n + w_n
+  \end{pmatrix}
+  \in V
+  \]
+ \end{block}
+
+
+ \begin{block}{スカラー倍}
+  \[
+  k \in K,
+  k \bm{v} =
+  \begin{pmatrix}
+   k v_1 \\
+   \vdots \\
+   k v_n
+  \end{pmatrix}
+  \in V
+  \]
+ \end{block}
+
+\end{frame}
+
+\begin{frame}{前回のおさらい - 写像}
+ 集合 $A, B$ の写像(mapping, function, 関数) $f : A \rightarrow B$
+
+ \begin{block}{写像}
+  任意の $a \in A$ に対して $f(a) \in B$ は一つに定まる
+ \end{block}
+
+ 線形写像(linear mapping) $f : V \rightarrow V$
+
+ \begin{block}{線形写像}
+  任意の $a, b \in K,\  \bm{v}, \bm{w} \in V$ について、
+  \[
+  f(a\bm{v} + b\bm{w}) = a f(\bm{v}) + b f(\bm{w})
+  \]
+  が成り立つ
+ \end{block}
+
+\end{frame}
+
+\begin{frame}{前回のおさらい - 行列}
+ 要素 $K$ の $m \times n$-行列の集合 $M_{mn}$
+ \[
+  A =
+  \begin{pmatrix}
+   a_{11} & \ldots & a_{1n}  \\
+   \vdots & \ddots & \vdots  \\
+   a_{m1} & \ldots & a_{mn}
+  \end{pmatrix}
+  \in M_{mn}, \hspace{1em}
+  B =
+  \begin{pmatrix}
+   b_{11} & \ldots & b_{1k}  \\
+   \vdots & \ddots & \vdots  \\
+   b_{n1} & \ldots & b_{nk}
+  \end{pmatrix}
+  \in M_{nk}
+ \]
+ 行列の積
+ \[
+  AB =
+  \begin{pmatrix}
+   a_{11}b_{11} + \dots + a_{1n}b_{n1} & \ldots & a_{11}b_{1k} + \dots + a_{1n}b_{nk}  \\
+   \vdots & \ddots & \vdots  \\
+   a_{m1}b_{11} + \dots + a_{mn}b_{n1} & \ldots & a_{m1}b_{1k} + \dots + a_{mn}b_{nk}
+  \end{pmatrix}
+  \in M_{mk}
+ \]
+
+ 行列とベクトルの積
+ \[
+  A\bm{v} =
+  \begin{pmatrix}
+   a_{11}v_n + \dots + a_{1n}v_n \\
+   \vdots \\
+   a_{m1}v_1 +  \dots + a_{mn}v_n
+  \end{pmatrix}
+ \]
+
+ 一般に $AB \neq BA$ となる
+\end{frame}
+
+
+\begin{frame}{前回の反省}
+ 色々飛ばしすぎました…
+
+ 今回は数学の基礎に少し戻って考えます
+
+
+\end{frame}
+
+\begin{frame}{集合}
+ 集合とは「要素」の集まりで、各要素を等しいか等しくないかで判定可能なもの。
+
+ \[
+  \{1,2,3,\dots\},\ \emptyset\text{(空集合)},\ \mathbb{Z}\text{(整数)}
+ \]
+
+ 重複するものは一つの要素とみなされるので、例えば $\{1,2,2,4\} = \{1,2,4\}$
+
+ \begin{block}{内包的記法}
+  要素を列挙する\bm{外延的記法}に対して、要素の条件を書き集合を定義する記法を\bm{内包的記法}という
+  \[
+  \{2n \mid n \in \mathbb{Z}\} \text{(偶数全体)}
+  \]
+ \end{block}
+
+ 数学で「集合」と言うとき、特定の条件を満たすものや集合の要素全体が法則性を持つものを考えることが多い
+
+ \begin{block}{集合の等価性}
+  ２つの集合 $A, B$ について全ての要素が一致するとき、 $A = B$ と書き集合が等しいという
+
+  $A$ の要素が全て $B$ に含まれるとき、 $A \subset B$ と書き「$A$ は $B$ に含まれる、または部分集合である」という
+
+  $A \subset B$ かつ $B \subset A$ ならば、 $A = B$ である(証明略)
+ \end{block}
+
+\end{frame}
+
+\begin{frame}{いろいろな集合}
+ \begin{itemize}
+  \item $A \cap B$ : $A$ と $B$ の共通部分、どちらにも含まれる要素の集合
+  \item $A \cup B$ : $A$ と $B$ の和集合、どちらかに含まれる要素の集合
+  \item $\bar{A}, A^{c}$ : $A$の補集合、普遍集合内の $A$ に含まれない要素の集合, complement
+  \item $\mathfrak{P}(A), 2^{A}$ : $A$ のべき集合、$A$ の部分集合の全体( $\{B \mid B \subset A\}$ )
+ \end{itemize}
+\end{frame}
+
+
+\begin{frame}{演算のある集合}
+ \begin{itemize}
+  \item 集合の演算とは、集合の幾つかの要素の組み合わせで新しい要素を作る写像のこと
+  \item 和( $+$ )や積( $\cdot$ )は二項演算(2つの要素の組み合わせによる演算)
+  \item 整数にも有理数にも実数にも、加えてベクトルや行列にも演算があるが、それらの共通点や法則は何か？
+  \item 数学ではこのように抽象化した概念を考える
+  \item 逆に抽象概念を具体的な概念に落とし込むこともある（演繹とかアナロジー）
+ \end{itemize}
+
+\end{frame}
+
+\begin{frame}{群}
+
+ \begin{block}{群の定義}
+  ある集合 $G$ が群(group)であるとは、演算( $\cdot$ )が定義されており、以下の条件を満たしていることを指す
+  (以下 $a \cdot b$ を $ab$ と省略する)
+
+  \begin{itemize}
+  \item $\forall x, y \in G,\ xy \in G$ (積に関して閉じている)
+  \item $\exists e \in G, \forall x \in G,\ ex = xe = x$ (単位元の存在)
+  \item $\forall x, y, z \in G, \ (xy)z = x(yz)$ (結合法則)
+  \item $\forall x \in G, \exists x^{-1} \in G,\ xx^{-1} = x^{-1}x = e$ (逆元の存在)
+  \end{itemize}
+ \end{block}
+
+ ここで「演算」は一般的な積とは異なります。例えば、整数は「和($+$)」に関して群といえますが、積に関しては群ではありません。
+
+ \begin{block}{課題}
+  整数が和の演算について単位元と逆元を定義し、群になっていることを確認せよ
+ \end{block}
+
+ \begin{block}{課題}
+  群 $G$ に対して、単位元 $e$ はただ一つであることを証明せよ
+ \end{block}
+
+\end{frame}
+
+\begin{frame}{環}
+ \begin{block}{環の定義}
+  集合 $R$ が環(ring)であるとは、和と積の集合が定義されており以下の条件が成り立つ時にいう
+  \begin{itemize}
+   \item $\forall x, y \in R,\ xy \in R, x + y \in R$ (演算に関して閉じている)
+   \item $\exists 0_R \in R, \forall x \in R,\ 0_R + x = x + 0_R = x$ (和の単位元の存在)
+   \item $\forall x, y \in R, \ x + y = y + x$ (和の交換法則)
+   \item $\forall x, y, z \in R, \ (x + y) + z = x + (y + z)$ (和の結合法則)
+   \item $\forall x \in R, \exists -x \in R,\ x + (-x) = (-x) + x = 0_R$ (和の逆元の存在)
+   \item $\exists 1_R \in R, \forall x \in R,\ 1_R x = x1_R = x$ (積の単位元の存在)
+   \item $\forall x, y, z \in R, (xy)z = x(yz)$ (積の結合法則)
+   \item $\forall x, y, z \in R, (x + y)z = xz + yz, x(y + z) = xy + xz$ (分配法則)
+  \end{itemize}
+ \end{block}
+ 整数( $\mathbb{Z}$ )はその和と積の演算に関して環である
+
+ \begin{block}{課題}
+  環 $R$ について、 $\forall x \in R, x0_R = 0_Rx = 0_R$ を示せ(補題: $(-1_R)x = -x$ を示せ)
+
+  また、$(-1_R)(-1_R) = 1_R$ を示せ
+ \end{block}
+
+\end{frame}
+
+\begin{frame}{体}
+ \begin{block}{体の定義}
+  集合 $K$ が体(field\footnote{ドイツ語のK\"{o}rperから})であるとは、集合 $K$ が環であり、かつ積に関して以下の条件を満たすときにいう
+  \begin{itemize}
+   \item $\forall x \in K \backslash \{0\}, \exists x^{-1} \in K, xx^{-1} = x^{-1}x = 1_K$ (積の逆元の存在)
+  \end{itemize}
+ \end{block}
+ 体はいわゆる割り算が可能な集合の性質である
+
+ 整数は体ではないが、有理数の集合( $\mathbb{Q}$ )は体となっている。
+
+ \[
+  \mathbb{Q} \overset{\text{def}}{=} \left\{\frac{a}{b} \relmiddle| a \in \mathbb{Z}, b \in \mathbb{Z} \backslash \{0\} \right\}
+ \]
+
+ 実数( $\mathbb{R}$ )も体である
+
+ \begin{block}{課題}
+  複素数( $\mathbb{C}$ )は体か？
+ \end{block}
+\end{frame}
+
+\begin{frame}{写像}
+ \begin{block}{写像}
+  $f: A \rightarrow B$ が写像であるとは、以下の条件を満たすときに言う
+  \begin{itemize}
+  \item 任意の $a \in A$ に対して、 $f(a) \in B$ が必ず存在する
+  \item $a \in A$ に対して $f(a) \in B$ はただひとつに定まる
+  \end{itemize}
+ \end{block}
+
+ $f(a)$ を $a$ の像という。全ての $a \in A$ に対して像が存在することを強調して全域写像ということもある。
+ 一般には写像というときは全域写像を指す。
+
+ 逆に、 $A$ の部分集合のみにしか $f(a)$ が存在しない（定義されていない）写像を部分写像という。
+
+\begin{block}{逆写像}
+ 写像 $f: A \rightarrow B$ に対し、 写像 $g: B \rightarrow A$ が存在して
+ \[
+  \forall a \in A, g(f(a)) = a
+ \]
+ となるとき、 $g$ を $f$ の逆写像といい、 $f^{-1}$ と書く。
+\end{block}
+\end{frame}
+
+\begin{frame}{統計}
+ 統計の目的はいくつかの観測データやサンプルから実際にデータ全体はどうなっているのか、どのような構造がデータの中にあるのかを推定することにある
+
+
+\end{frame}
+
+\begin{frame}{確率変数}
+ $X: \mathfrak{P}(\Omega) \rightarrow \mathbb{R}$ が確率変数であるとは
+ \begin{itemize}
+  \item $\forall E \subset \Omega, X(E)$
+ \end{itemize}
+\end{frame}
+
+\end{document}
